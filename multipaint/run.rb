@@ -1,18 +1,24 @@
-require "json"
+require 'json'
 
 module Multipaint
-  def self.run! player_class
-    $stdin.sync = true
-    $stdout.sync = true
+  class << self
+    def write(message)
+      $stdout.puts(JSON.generate(message))
+    end
 
-    player = player_class.new(JSON.parse($stdin.readline))
+    def run!(player_class)
+      $stdin.sync = true
+      $stdout.sync = true
 
-    $stdout.puts JSON.dump(ready: true)
+      player = player_class.new(JSON.parse($stdin.readline))
 
-    loop do
-      msg = JSON.parse($stdin.readline)
+      write(ready: true)
 
-      $stdout.puts JSON.generate({ turns_left: msg["turns_left"] }.merge(player.next_move(msg)))
+      loop do
+        msg = JSON.parse($stdin.readline)
+
+        write({ turns_left: msg['turns_left'] }.merge(player.next_move(msg)))
+      end
     end
   end
 end
