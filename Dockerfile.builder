@@ -2,6 +2,6 @@ FROM mob-ai-ruby:latest
 
 RUN mkdir /robot/
 ADD multipaint /robot/multipaint
-ADD source_code /robot/bot.rb
+ADD bot.rb /robot/bot.rb
 
 ENTRYPOINT ["ruby", "-I/robot", "robot/bot.rb"]
