@@ -10,7 +10,7 @@ module Multipaint
       $stdin.sync = true
       $stdout.sync = true
 
-      player = player_class.new(JSON.parse($stdin.readline))
+      player = player_class.new(JSON.parse($stdin.readline)["player_id"])
 
       write(ready: true)
 
